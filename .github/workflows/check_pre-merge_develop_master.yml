@@ -40,6 +40,6 @@ jobs:
 #      with:
 #        entrypoint: /github/workspace/.github/workflows/docker/test_entrypoint.sh
       run: |
-        docker run --entrypoint /github/workspace/.github/workflows/docker/test_entrypoint.sh docker.pkg.github.com/${{ github.repository_owner }}/elements-testing-dockerfile/elements-testing
+        docker run --entrypoint /github/workspace/.github/workflows/docker/test_entrypoint.sh docker.pkg.github.com/${{ github.repository_owner }}/elements-testing-dockerfile/elements-testing:v0.0.2
     - name: after cleanup
       run: sudo rm -rf bitcoind_datadir
