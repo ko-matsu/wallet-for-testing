@@ -18,6 +18,10 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2
+    - name: Login GitHub Registry
+      run: docker login docker.pkg.github.com -u owner -p ${{ secrets.GITHUB_TOKEN }}
+    - name: Pull image from GitHub Registry
+      run: docker pull docker.pkg.github.com/${{ github.repository_owner }}/elements-testing-dockerfile/elements-testing:v0.0.2
     - name: init directory
       run: |
         mkdir node_modules
@@ -32,7 +36,7 @@ jobs:
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
       run: npm install
     - name: integration test
-      uses: docker://docker.pkg.github.com/ko-matsu/elements-testing-dockerfile/elements-testing:v0.0.2
+      uses: docker://docker.pkg.github.com/${{ github.repository_owner }}/elements-testing-dockerfile/elements-testing:v0.0.2
       with:
         entrypoint: /github/workspace/.github/workflows/docker/test_entrypoint.sh
     - name: after cleanup
