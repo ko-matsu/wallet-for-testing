@@ -36,8 +36,10 @@ jobs:
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
       run: npm install
     - name: integration test
-      uses: docker://docker.pkg.github.com/${{ github.repository_owner }}/elements-testing-dockerfile/elements-testing:v0.0.2
-      with:
-        entrypoint: /github/workspace/.github/workflows/docker/test_entrypoint.sh
+#      uses: docker://docker.pkg.github.com/${{ github.repository_owner }}/elements-testing-dockerfile/elements-testing:v0.0.2
+#      with:
+#        entrypoint: /github/workspace/.github/workflows/docker/test_entrypoint.sh
+      run: |
+        docker run --entrypoint /github/workspace/.github/workflows/docker/test_entrypoint.sh docker.pkg.github.com/${{ github.repository_owner }}/elements-testing-dockerfile/elements-testing
     - name: after cleanup
       run: sudo rm -rf bitcoind_datadir
